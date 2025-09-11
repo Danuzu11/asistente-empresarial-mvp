@@ -1,0 +1,200 @@
+{
+  "dashboard_metrics": {
+    "sales": {
+      "current_month": 24580,
+      "previous_month": 21850,
+      "growth_percentage": 12.5,
+      "target": 30000,
+      "achievement_percentage": 82,
+      "top_products": [
+        {
+          "name": "Software Empresarial Pro",
+          "sales": 8500,
+          "percentage": 34.6
+        },
+        {
+          "name": "Consultoría Digital",
+          "sales": 6200,
+          "percentage": 25.2
+        },
+        {
+          "name": "Soporte Técnico",
+          "sales": 4800,
+          "percentage": 19.5
+        },
+        {
+          "name": "Capacitación Online",
+          "sales": 3500,
+          "percentage": 14.2
+        },
+        {
+          "name": "Otros Servicios",
+          "sales": 1580,
+          "percentage": 6.4
+        }
+      ]
+    },
+    "customers": {
+      "total_active": 1247,
+      "new_this_month": 89,
+      "churn_rate": 3.2,
+      "retention_rate": 96.8,
+      "average_lifetime_value": 1850,
+      "segments": {
+        "enterprise": {
+          "count": 45,
+          "revenue_percentage": 60
+        },
+        "sme": {
+          "count": 892,
+          "revenue_percentage": 35
+        },
+        "startup": {
+          "count": 310,
+          "revenue_percentage": 5
+        }
+      }
+    },
+    "projects": {
+      "active": 23,
+      "completed_this_month": 8,
+      "on_time_delivery": 87.5,
+      "average_duration_days": 45,
+      "client_satisfaction": 4.6,
+      "categories": {
+        "desarrollo_web": 8,
+        "consultoria": 6,
+        "marketing_digital": 5,
+        "automatizacion": 4
+      }
+    },
+    "team": {
+      "total_members": 45,
+      "departments": {
+        "desarrollo": 15,
+        "marketing": 8,
+        "ventas": 10,
+        "rrhh": 4,
+        "finanzas": 3,
+        "direccion": 5
+      },
+      "productivity_metrics": {
+        "average_hours_per_week": 42,
+        "remote_work_percentage": 75,
+        "employee_satisfaction": 4.3,
+        "turnover_rate": 8.5
+      }
+    }
+  },
+  "chat_analytics": {
+    "total_conversations": 156,
+    "active_conversations": 23,
+    "average_messages_per_conversation": 8.5,
+    "most_common_topics": [
+      {
+        "topic": "análisis_de_datos",
+        "frequency": 45,
+        "percentage": 28.8
+      },
+      {
+        "topic": "optimización_procesos",
+        "frequency": 32,
+        "percentage": 20.5
+      },
+      {
+        "topic": "estrategia_marketing",
+        "frequency": 28,
+        "percentage": 17.9
+      },
+      {
+        "topic": "gestión_proyectos",
+        "frequency": 25,
+        "percentage": 16.0
+      },
+      {
+        "topic": "recursos_humanos",
+        "frequency": 26,
+        "percentage": 16.7
+      }
+    ],
+    "user_engagement": {
+      "daily_active_users": 12,
+      "weekly_active_users": 35,
+      "monthly_active_users": 45,
+      "average_session_duration_minutes": 18.5,
+      "messages_per_user_per_day": 6.2
+    },
+    "response_quality": {
+      "user_satisfaction_rating": 4.4,
+      "response_accuracy": 92.5,
+      "average_response_time_seconds": 3.2,
+      "follow_up_question_rate": 68.3
+    }
+  },
+  "business_intelligence": {
+    "market_trends": {
+      "industry_growth": 8.5,
+      "competitor_analysis": {
+        "market_share": 15.2,
+        "competitive_advantage": "innovación_tecnológica",
+        "threats": ["nuevos_competidores", "cambios_regulatorios"],
+        "opportunities": ["expansión_internacional", "nuevos_mercados"]
+      }
+    },
+    "financial_health": {
+      "revenue_growth": 12.5,
+      "profit_margin": 18.3,
+      "cash_flow": "positive",
+      "debt_to_equity": 0.35,
+      "current_ratio": 2.1
+    },
+    "operational_efficiency": {
+      "process_automation_level": 65,
+      "digital_transformation_progress": 78,
+      "employee_productivity_index": 4.2,
+      "customer_satisfaction_score": 4.6,
+      "quality_metrics": {
+        "defect_rate": 2.1,
+        "on_time_delivery": 94.5,
+        "customer_complaints": 0.8
+      }
+    }
+  },
+  "predictive_analytics": {
+    "sales_forecast": {
+      "next_month": 26500,
+      "next_quarter": 82000,
+      "next_year": 320000,
+      "confidence_level": 85,
+      "factors": [
+        "temporada_alta",
+        "nuevos_productos",
+        "expansión_mercado"
+      ]
+    },
+    "customer_behavior": {
+      "churn_prediction": {
+        "high_risk": 23,
+        "medium_risk": 45,
+        "low_risk": 1179
+      },
+      "upselling_opportunities": {
+        "enterprise_upgrade": 12,
+        "additional_services": 28,
+        "premium_features": 35
+      }
+    },
+    "resource_planning": {
+      "hiring_needs": {
+        "desarrollo": 3,
+        "marketing": 2,
+        "ventas": 4
+      },
+      "capacity_utilization": {
+        "current": 78,
+        "projected_next_quarter": 85,
+        "recommended_capacity": 90
+      }
+    }
+  }
+}

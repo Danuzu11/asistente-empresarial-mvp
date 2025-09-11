@@ -1,0 +1,166 @@
+{
+  "categories": {
+    "ventas": {
+      "title": "Gestión de Ventas",
+      "description": "Estrategias, técnicas y mejores prácticas para optimizar las ventas",
+      "articles": [
+        {
+          "id": "kb_001",
+          "title": "Cómo crear un embudo de ventas efectivo",
+          "content": "Un embudo de ventas bien diseñado es fundamental para convertir leads en clientes. Las etapas clave incluyen: conciencia, interés, consideración, intención y compra. Cada etapa requiere estrategias específicas y métricas de seguimiento.",
+          "tags": ["embudo", "conversión", "leads", "estrategia"],
+          "difficulty": "intermedio",
+          "estimated_read_time": 8
+        },
+        {
+          "id": "kb_002",
+          "title": "Técnicas de cierre de ventas",
+          "content": "El cierre es la culminación del proceso de ventas. Técnicas efectivas incluyen: cierre directo, cierre por alternativas, cierre por urgencia, y cierre por beneficios. La clave está en identificar el momento adecuado y usar la técnica apropiada.",
+          "tags": ["cierre", "técnicas", "negociación", "conversión"],
+          "difficulty": "avanzado",
+          "estimated_read_time": 12
+        }
+      ]
+    },
+    "marketing": {
+      "title": "Marketing Digital",
+      "description": "Estrategias de marketing digital y crecimiento de marca",
+      "articles": [
+        {
+          "id": "kb_003",
+          "title": "Content Marketing para empresas B2B",
+          "content": "El content marketing B2B se enfoca en educar y proporcionar valor antes de vender. Estrategias clave: whitepapers, estudios de caso, webinars, y contenido técnico. La distribución a través de LinkedIn y email marketing es fundamental.",
+          "tags": ["content", "B2B", "educación", "valor"],
+          "difficulty": "intermedio",
+          "estimated_read_time": 10
+        },
+        {
+          "id": "kb_004",
+          "title": "SEO técnico para empresas",
+          "content": "El SEO técnico optimiza la infraestructura del sitio web para motores de búsqueda. Elementos clave: velocidad de carga, estructura de URLs, meta tags, schema markup, y optimización móvil. Es la base para cualquier estrategia SEO.",
+          "tags": ["SEO", "técnico", "optimización", "rendimiento"],
+          "difficulty": "avanzado",
+          "estimated_read_time": 15
+        }
+      ]
+    },
+    "rrhh": {
+      "title": "Recursos Humanos",
+      "description": "Gestión de talento y optimización de procesos de RRHH",
+      "articles": [
+        {
+          "id": "kb_005",
+          "title": "Automatización de procesos de RRHH",
+          "content": "La automatización en RRHH mejora la eficiencia y reduce errores. Procesos clave para automatizar: onboarding, gestión de vacaciones, evaluaciones, y nómina. Beneficios incluyen ahorro de tiempo, mejor experiencia del empleado, y datos más precisos.",
+          "tags": ["automatización", "eficiencia", "procesos", "digitalización"],
+          "difficulty": "intermedio",
+          "estimated_read_time": 9
+        },
+        {
+          "id": "kb_006",
+          "title": "Retención de talento en empresas tecnológicas",
+          "content": "Retener talento tecnológico requiere estrategias específicas: desarrollo profesional, proyectos desafiantes, cultura innovadora, y compensación competitiva. La clave está en crear un ambiente donde los empleados puedan crecer y contribuir significativamente.",
+          "tags": ["retención", "talento", "tecnología", "cultura"],
+          "difficulty": "avanzado",
+          "estimated_read_time": 11
+        }
+      ]
+    },
+    "finanzas": {
+      "title": "Gestión Financiera",
+      "description": "Análisis financiero y optimización de recursos",
+      "articles": [
+        {
+          "id": "kb_007",
+          "title": "Análisis de flujo de caja para PYMES",
+          "content": "El flujo de caja es vital para la supervivencia de las PYMES. Análisis clave: proyecciones mensuales, identificación de estacionalidad, gestión de cuentas por cobrar, y optimización de pagos. Herramientas como el presupuesto de caja son fundamentales.",
+          "tags": ["flujo_caja", "PYMES", "proyecciones", "liquidez"],
+          "difficulty": "básico",
+          "estimated_read_time": 7
+        },
+        {
+          "id": "kb_008",
+          "title": "ROI en inversiones tecnológicas",
+          "content": "Calcular el ROI de inversiones tecnológicas requiere considerar beneficios tangibles e intangibles. Métricas clave: reducción de costos, aumento de productividad, mejora en satisfacción del cliente, y ventaja competitiva. El análisis debe incluir el costo total de propiedad.",
+          "tags": ["ROI", "tecnología", "inversión", "métricas"],
+          "difficulty": "avanzado",
+          "estimated_read_time": 13
+        }
+      ]
+    },
+    "operaciones": {
+      "title": "Operaciones y Procesos",
+      "description": "Optimización de procesos y mejora continua",
+      "articles": [
+        {
+          "id": "kb_009",
+          "title": "Metodología Lean para empresas de servicios",
+          "content": "Lean se enfoca en eliminar desperdicios y crear valor para el cliente. En servicios, los desperdicios incluyen: esperas, movimientos innecesarios, sobreprocesamiento, y defectos. Herramientas clave: mapeo de valor, 5S, y mejora continua.",
+          "tags": ["Lean", "servicios", "desperdicios", "valor"],
+          "difficulty": "intermedio",
+          "estimated_read_time": 10
+        },
+        {
+          "id": "kb_010",
+          "title": "Gestión de proyectos ágiles",
+          "content": "La metodología ágil adapta el desarrollo a cambios constantes. Principios clave: iteraciones cortas, colaboración estrecha, entrega continua de valor, y adaptación rápida. Frameworks populares incluyen Scrum, Kanban, y SAFe para organizaciones grandes.",
+          "tags": ["ágil", "proyectos", "iterativo", "colaboración"],
+          "difficulty": "intermedio",
+          "estimated_read_time": 12
+        }
+      ]
+    }
+  },
+  "faqs": [
+    {
+      "id": "faq_001",
+      "question": "¿Cómo puedo mejorar la productividad de mi equipo?",
+      "answer": "Para mejorar la productividad: 1) Establece objetivos claros y medibles, 2) Proporciona las herramientas adecuadas, 3) Implementa procesos eficientes, 4) Fomenta la comunicación abierta, 5) Reconoce y recompensa el buen desempeño, 6) Invierte en capacitación continua.",
+      "category": "operaciones",
+      "tags": ["productividad", "equipo", "eficiencia"]
+    },
+    {
+      "id": "faq_002",
+      "question": "¿Qué métricas debo seguir para medir el éxito de mi negocio?",
+      "answer": "Métricas clave por área: Ventas (ingresos, conversión, CAC), Marketing (ROI, leads calificados, engagement), Finanzas (flujo de caja, margen de ganancia, ROI), Operaciones (productividad, satisfacción del cliente, tiempo de entrega), RRHH (retención, satisfacción del empleado, productividad).",
+      "category": "analytics",
+      "tags": ["métricas", "KPIs", "medición", "éxito"]
+    },
+    {
+      "id": "faq_003",
+      "question": "¿Cómo puedo reducir costos operativos sin afectar la calidad?",
+      "answer": "Estrategias efectivas: 1) Automatiza procesos repetitivos, 2) Negocia mejores términos con proveedores, 3) Optimiza el uso de recursos, 4) Implementa tecnología que mejore la eficiencia, 5) Capacita al equipo para mayor productividad, 6) Revisa y elimina procesos innecesarios.",
+      "category": "finanzas",
+      "tags": ["costos", "optimización", "eficiencia", "calidad"]
+    },
+    {
+      "id": "faq_004",
+      "question": "¿Cuál es la mejor estrategia para retener clientes?",
+      "answer": "Estrategias de retención: 1) Proporciona valor excepcional y consistente, 2) Mantén comunicación regular y personalizada, 3) Resuelve problemas rápidamente, 4) Ofrece programas de fidelización, 5) Solicita feedback y actúa sobre él, 6) Anticipa las necesidades del cliente, 7) Construye relaciones a largo plazo.",
+      "category": "ventas",
+      "tags": ["retención", "clientes", "fidelización", "relaciones"]
+    }
+  ],
+  "templates": {
+    "business_plans": [
+      {
+        "name": "Plan de Negocio Básico",
+        "sections": ["resumen_ejecutivo", "descripcion_negocio", "analisis_mercado", "estrategia_marketing", "operaciones", "finanzas", "equipo"]
+      },
+      {
+        "name": "Plan de Marketing Digital",
+        "sections": ["objetivos", "audiencia_objetivo", "estrategia_contenido", "canales_distribucion", "presupuesto", "metricas", "cronograma"]
+      }
+    ],
+    "reports": [
+      {
+        "name": "Reporte de Ventas Mensual",
+        "sections": ["resumen_ejecutivo", "metricas_clave", "analisis_tendencias", "comparacion_periodos", "recomendaciones"]
+      },
+      {
+        "name": "Análisis de Satisfacción del Cliente",
+        "sections": ["metodologia", "resultados_generales", "analisis_por_segmentos", "areas_mejora", "plan_accion"]
+      }
+    ]
+  }
+}

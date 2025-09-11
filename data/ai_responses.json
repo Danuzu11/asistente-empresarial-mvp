@@ -1,0 +1,123 @@
+{
+  "templates": {
+    "greeting": [
+      "¡Hola! Soy tu asistente empresarial. ¿En qué puedo ayudarte hoy?",
+      "Buenos días. Estoy aquí para asistirte con cualquier consulta empresarial.",
+      "¡Hola! ¿Hay algún tema empresarial en el que pueda ayudarte?",
+      "Bienvenido. Soy tu asistente de IA especializado en temas empresariales."
+    ],
+    "analysis": [
+      "Basándome en los datos disponibles, puedo ofrecerte el siguiente análisis:",
+      "He analizado la información y aquí están mis conclusiones:",
+      "Después de revisar los datos, estas son mis recomendaciones:",
+      "Mi análisis sugiere las siguientes tendencias y oportunidades:"
+    ],
+    "recommendations": [
+      "Te recomiendo las siguientes acciones:",
+      "Basándome en las mejores prácticas, sugiero:",
+      "Para optimizar este proceso, recomiendo:",
+      "Las siguientes estrategias podrían ser efectivas:"
+    ],
+    "clarification": [
+      "Para darte una respuesta más precisa, necesito más información sobre:",
+      "¿Podrías proporcionarme más detalles sobre:",
+      "Para ayudarte mejor, me gustaría saber:",
+      "¿En qué aspecto específico te gustaría que me enfoque?"
+    ],
+    "error": [
+      "Disculpa, no pude procesar tu solicitud. ¿Podrías reformularla?",
+      "No tengo suficiente información para responder esa pregunta. ¿Puedes darme más contexto?",
+      "Mi conocimiento sobre ese tema es limitado. ¿Hay algo más en lo que pueda ayudarte?",
+      "No estoy seguro de entender completamente. ¿Podrías ser más específico?"
+    ]
+  },
+  "business_topics": {
+    "ventas": {
+      "keywords": ["ventas", "vender", "clientes", "ingresos", "revenue", "sales"],
+      "responses": [
+        "Para optimizar las ventas, te sugiero analizar el embudo de conversión y identificar los puntos de fricción.",
+        "Las estrategias de ventas efectivas incluyen personalización, seguimiento proactivo y valor agregado.",
+        "¿Has considerado implementar un CRM para mejorar el seguimiento de clientes potenciales?"
+      ]
+    },
+    "marketing": {
+      "keywords": ["marketing", "publicidad", "promoción", "branding", "campaña"],
+      "responses": [
+        "El marketing digital requiere una estrategia omnicanal y medición constante de KPIs.",
+        "Para B2B, LinkedIn y el content marketing son fundamentales para generar leads calificados.",
+        "¿Has analizado el customer journey para optimizar tus campañas de marketing?"
+      ]
+    },
+    "rrhh": {
+      "keywords": ["rrhh", "recursos humanos", "empleados", "contratación", "personal"],
+      "responses": [
+        "La automatización de procesos de RRHH puede mejorar significativamente la eficiencia operativa.",
+        "Para retener talento, es clave ofrecer desarrollo profesional y un ambiente de trabajo positivo.",
+        "¿Has implementado sistemas de evaluación de desempeño y feedback continuo?"
+      ]
+    },
+    "finanzas": {
+      "keywords": ["finanzas", "presupuesto", "costos", "inversión", "ROI", "cashflow"],
+      "responses": [
+        "Un análisis financiero robusto incluye proyecciones, análisis de ratios y gestión de riesgos.",
+        "Para optimizar el cashflow, considera automatizar la facturación y mejorar la gestión de cobros.",
+        "¿Has implementado un sistema de control presupuestario y seguimiento de gastos?"
+      ]
+    },
+    "operaciones": {
+      "keywords": ["operaciones", "procesos", "eficiencia", "productividad", "optimización"],
+      "responses": [
+        "La mejora continua de procesos es clave para aumentar la eficiencia operativa.",
+        "Considera mapear tus procesos actuales para identificar oportunidades de automatización.",
+        "¿Has implementado metodologías como Lean o Six Sigma en tu organización?"
+      ]
+    },
+    "tecnología": {
+      "keywords": ["tecnología", "digitalización", "software", "sistemas", "IT"],
+      "responses": [
+        "La transformación digital debe alinearse con los objetivos de negocio y la experiencia del usuario.",
+        "Para elegir tecnología, evalúa ROI, escalabilidad y facilidad de integración.",
+        "¿Has considerado la ciberseguridad y la protección de datos en tu estrategia tecnológica?"
+      ]
+    }
+  },
+  "contextual_responses": {
+    "morning": [
+      "¡Buenos días! ¿Cómo puedo ayudarte a comenzar el día de manera productiva?",
+      "Buenos días. ¿Hay alguna tarea empresarial que te gustaría abordar hoy?",
+      "¡Hola! ¿Qué desafíos empresariales tenemos para hoy?"
+    ],
+    "afternoon": [
+      "Buenas tardes. ¿Cómo va el día? ¿En qué puedo asistirte?",
+      "¡Hola! ¿Hay algo en lo que pueda ayudarte esta tarde?",
+      "Buenas tardes. ¿Qué temas empresariales necesitas resolver?"
+    ],
+    "evening": [
+      "Buenas noches. ¿Hay algo urgente en lo que pueda ayudarte?",
+      "¡Hola! ¿Cómo puedo asistirte esta noche?",
+      "Buenas noches. ¿Qué consulta empresarial tienes?"
+    ]
+  },
+  "follow_up_questions": {
+    "ventas": [
+      "¿Cuál es tu objetivo de ventas para este trimestre?",
+      "¿Qué canales de venta estás utilizando actualmente?",
+      "¿Has identificado tu buyer persona principal?"
+    ],
+    "marketing": [
+      "¿Cuál es tu presupuesto de marketing?",
+      "¿Qué métricas estás siguiendo actualmente?",
+      "¿Has definido tu propuesta de valor única?"
+    ],
+    "rrhh": [
+      "¿Cuántos empleados tiene tu empresa?",
+      "¿Qué procesos de RRHH te toman más tiempo?",
+      "¿Has implementado algún sistema de gestión de talento?"
+    ],
+    "finanzas": [
+      "¿Cuál es tu flujo de caja actual?",
+      "¿Qué herramientas financieras estás utilizando?",
+      "¿Has establecido un presupuesto anual?"
+    ]
+  }
+}
