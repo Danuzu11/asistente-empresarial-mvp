@@ -5,22 +5,34 @@ import { useRouter } from 'next/navigation';
 import { 
   Send, 
   Plus, 
-  MoreVertical, 
   User, 
   Bot, 
   ArrowLeft,
   MessageSquare,
   Trash2,
-  Edit3,
-  FileText
+  FileText,
+  Download,
+  Eye,
+  Mic,
+  Image,
+  Paperclip,
+  Banana 
 } from 'lucide-react';
-import { generateAccountingPDF } from '@/lib/pdfGenerator';
+
+interface DocumentAttachment {
+  filename: string;
+  content: string; // base64
+  contentType: string;
+  size: number;
+  downloadUrl: string;
+}
 
 interface Message {
   id: string;
   content: string;
   role: 'user' | 'assistant';
   timestamp: Date;
+  documentAttachment?: DocumentAttachment;
 }
 
 interface Chat {
@@ -36,6 +48,7 @@ export default function ChatPage() {
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [messagesEndRef, setMessagesEndRef] = useState<HTMLDivElement | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -53,6 +66,13 @@ export default function ChatPage() {
     // Cargar chats existentes
     loadChats();
   }, [router]);
+
+  // Auto-scroll cuando se agregan nuevos mensajes
+  useEffect(() => {
+    if (messagesEndRef) {
+      messagesEndRef.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [currentChat?.messages, isLoading, messagesEndRef]);
 
   const loadChats = () => {
     const savedChats = localStorage.getItem('chats');
@@ -97,6 +117,38 @@ export default function ChatPage() {
     }
   };
 
+
+
+  // Funcion para enviar mensaje a Gemini
+  const sendToGemini = async (message: string, history: Message[]) => {
+    try {
+
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message,
+          history: history.map(msg => ({
+            role: msg.role,
+            content: msg.content
+          }))
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error en la respuesta de la API');
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error al conectar con Gemini:', error);
+      throw error;
+    }
+  };
+
   const sendMessage = async () => {
     if (!inputMessage.trim() || !currentChat) return;
 
@@ -120,37 +172,61 @@ export default function ChatPage() {
     setInputMessage('');
     setIsLoading(true);
 
-    // Verificar si el usuario escribió "PDF"
-    const isPDFRequest = inputMessage.toLowerCase().includes('pdf');
-
-    // Simular respuesta de IA 
-    setTimeout(() => {
-      let assistantContent: string;
+    try {
+      // Enviar mensaje a Gemini
+      const aiResponse = await sendToGemini(inputMessage, currentChat.messages);
+      console.log("🔍 Respuesta completa del API:", aiResponse);
+ 
+      let assistantMessage: Message;
       
-      if (isPDFRequest) {
-        // Generar PDF
-        try {
-          generateAccountingPDF();
-          assistantContent = `¡Perfecto! He generado un reporte de contabilidad en PDF para ti. El documento incluye:\n\n📊 **Datos de la empresa:** TECNOLOGÍA EMPRESARIAL S.A.\n📋 **RIF:** J-12345678-9\n📅 **Período:** Enero 2024\n💰 **Movimientos contables:** 14 transacciones\n📈 **Saldo final:** $1,110,000\n\nEl archivo se está descargando automáticamente. ¿Necesitas algún otro tipo de reporte o documento?`;
-        } catch (error) {
-          assistantContent = `Disculpa, hubo un error al generar el PDF. Por favor, inténtalo de nuevo.`;
-        }
+      // Verificar si hay un documento adjunto
+      if (aiResponse.documentAttachment) {
+        console.log("📄 Documento adjunto detectado:", aiResponse.documentAttachment.filename);
+        assistantMessage = {
+          id: (Date.now() + 1).toString(),
+          content: aiResponse.message,
+          role: 'assistant',
+          timestamp: new Date(),
+          documentAttachment: aiResponse.documentAttachment
+        };
       } else {
-        assistantContent = `Hola! Soy tu asistente empresarial. Recibí tu mensaje: "${inputMessage}". Por ahora estoy en modo de demostración, pero pronto podré ayudarte con tareas empresariales específicas como análisis de datos, gestión de proyectos, y más. ¿En qué más puedo ayudarte?`;
+        // Respuesta normal sin documento adjunto
+        console.log("💬 Respuesta normal sin documento adjunto");
+        assistantMessage = {
+          id: (Date.now() + 1).toString(),
+          content: aiResponse.message,
+          role: 'assistant',
+          timestamp: new Date()
+        };
       }
 
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        content: assistantContent,
-        role: 'assistant',
-        timestamp: new Date()
-      };
-
+      console.log("assistantMessage: ",  assistantMessage);
       const finalMessages = [...updatedMessages, assistantMessage];
       const finalChat = { ...updatedChat, messages: finalMessages };
       
       setCurrentChat(finalChat);
-      setIsLoading(false);
+
+      // Actualizar lista de chats
+      const updatedChats = chats.map(chat => 
+        chat.id === currentChat.id ? finalChat : chat
+      );
+
+      setChats(updatedChats);
+      localStorage.setItem('chats', JSON.stringify(updatedChats));
+
+    } catch (error) {
+      // En caso de error, mostrar mensaje de error
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: `❌ **Error de conexión**\n\nNo pude conectar con el asistente de IA. Por favor, verifica tu conexión a internet e inténtalo de nuevo.\n\nSi el problema persiste, contacta al administrador del sistema.`,
+        role: 'assistant',
+        timestamp: new Date()
+      };
+
+      const finalMessages = [...updatedMessages, errorMessage];
+      const finalChat = { ...updatedChat, messages: finalMessages };
+      
+      setCurrentChat(finalChat);
 
       // Actualizar lista de chats
       const updatedChats = chats.map(chat => 
@@ -158,7 +234,9 @@ export default function ChatPage() {
       );
       setChats(updatedChats);
       localStorage.setItem('chats', JSON.stringify(updatedChats));
-    }, isPDFRequest ? 2000 : 1500);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -173,6 +251,48 @@ export default function ChatPage() {
       hour: '2-digit', 
       minute: '2-digit' 
     });
+  };
+
+  // Función para formatear tamaño de archivo
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  // Función para ver documento
+  const viewDocument = (base64Content: string, filename: string) => {
+    const pdfWindow = window.open('', '_blank');
+    if (pdfWindow) {
+      pdfWindow.document.open();
+      pdfWindow.document.write(`
+        <html>
+          <head>
+            <title>${filename}</title>
+            <style>
+              body { margin: 0; padding: 0; }
+              iframe { width: 100vw; height: 100vh; border: none; }
+            </style>
+          </head>
+          <body>
+            <iframe src="data:application/pdf;base64,${base64Content}"></iframe>
+          </body>
+        </html>
+      `);
+      pdfWindow.document.close();
+    }
+  };
+
+  // Función para descargar documento
+  const downloadDocument = (base64Content: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = `data:application/pdf;base64,${base64Content}`;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -269,7 +389,7 @@ export default function ChatPage() {
                     {currentChat.title}
                   </h1>
                   <p className="text-sm text-gray-400">
-                    Asistente Empresarial IA
+                    Asistente Empresarial IA - Gemini
                   </p>
                 </div>
               </div>
@@ -284,9 +404,19 @@ export default function ChatPage() {
                     <h3 className="text-lg font-medium text-gray-400 mb-2">
                       ¡Comienza una conversación!
                     </h3>
-                    <p className="text-gray-500">
-                      Escribe tu primera pregunta o solicitud
+                    <p className="text-gray-500 mb-4">
+                      Pregúntame sobre procesos empresariales, documentación o cualquier tema relacionado con tu empresa
                     </p>
+                    <div className="bg-gray-800 rounded-lg p-4 text-left max-w-md">
+                      <p className="text-sm text-gray-300 mb-2">Puedo ayudarte con:</p>
+                      <ul className="text-sm text-gray-400 space-y-1">
+                        <li>• Análisis de documentos empresariales</li>
+                        <li>• Procesos contables y administrativos</li>
+                        <li>• Consultas sobre cuentas por cobrar</li>
+                        <li>• Órdenes de compra y peticiones</li>
+                        <li>• Reportes y análisis de datos</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -303,17 +433,62 @@ export default function ChatPage() {
                       </div>
                     )}
                     
-                    <div
-                      className={`max-w-3xl px-4 py-3 rounded-lg ${
-                        message.role === 'user'
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-700 text-gray-100'
-                      }`}
-                    >
-                      <p className="whitespace-pre-wrap">{message.content}</p>
-                      <p className="text-xs opacity-70 mt-2">
-                        {formatTime(message.timestamp)}
-                      </p>
+                    <div className="flex flex-col space-y-3">
+                      <div
+                        className={`max-w-3xl px-4 py-3 rounded-lg ${
+                          message.role === 'user'
+                            ? 'bg-blue-600 text-white'
+                            : 'bg-gray-700 text-gray-100'
+                        }`}
+                      >
+                        <p className="whitespace-pre-wrap">{message.content}</p>
+                        <p className="text-xs opacity-70 mt-2">
+                          {formatTime(message.timestamp)}
+                        </p>
+                      </div>
+                      
+                      {/* Documento adjunto - ahora en una línea separada */}
+                      {message.documentAttachment && (
+                        <div className="max-w-md">
+                          <div className="bg-gray-800 border border-gray-600 rounded-lg p-4">
+                            <div className="flex items-center space-x-3 mb-3">
+                              <div className="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center">
+                                <FileText className="w-5 h-5 text-blue-400" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-white truncate">
+                                  {message.documentAttachment.filename}
+                                </p>
+                                <p className="text-xs text-gray-400">
+                                  {formatFileSize(message.documentAttachment.size)}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex space-x-2">
+                              <button
+                                onClick={() => viewDocument(
+                                  message.documentAttachment!.content,
+                                  message.documentAttachment!.filename
+                                )}
+                                className="flex-1 flex items-center justify-center space-x-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm"
+                              >
+                                <Eye className="w-4 h-4" />
+                                <span>Ver</span>
+                              </button>
+                              <button
+                                onClick={() => downloadDocument(
+                                  message.documentAttachment!.content,
+                                  message.documentAttachment!.filename
+                                )}
+                                className="flex-1 flex items-center justify-center space-x-2 px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm"
+                              >
+                                <Download className="w-4 h-4" />
+                                <span>Descargar</span>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     
                     {message.role === 'user' && (
@@ -339,33 +514,50 @@ export default function ChatPage() {
                   </div>
                 </div>
               )}
+              
+              {/* Elemento de referencia para auto-scroll */}
+              <div ref={setMessagesEndRef} />
             </div>
 
             {/* Input area */}
             <div className="bg-gray-800 border-t border-gray-700 p-4">
               <div className="flex space-x-3">
+                {/* Botones de adjuntos */}
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => console.log('Subir audio')}
+                    className="p-3 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-colors"
+                    title="Subir audio"
+                  >
+                    <Mic className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => console.log('Subir imagen')}
+                    className="p-3 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-colors"
+                    title="Subir imagen"
+                  >
+                    <Image className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => console.log('Subir documento')}
+                    className="p-3 bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white rounded-lg transition-colors"
+                    title="Subir documento"
+                  >
+                    <Paperclip className="w-5 h-5" />
+                  </button>
+                </div>
+                
                 <div className="flex-1 relative">
                   <textarea
                     value={inputMessage}
                     onChange={(e) => setInputMessage(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder="Escribe tu mensaje aquí... (escribe 'PDF' para generar un reporte)"
+                    placeholder="Pregúntame sobre procesos empresariales, documentación o cualquier tema relacionado con tu empresa..."
                     className="w-full px-4 py-3 bg-gray-700 text-white rounded-lg border border-gray-600 focus:border-blue-500 focus:outline-none resize-none"
                     rows={1}
                     style={{ minHeight: '48px', maxHeight: '120px' }}
                   />
                 </div>
-                <button
-                  onClick={() => {
-                    setInputMessage('PDF');
-                    setTimeout(() => sendMessage(), 100);
-                  }}
-                  disabled={isLoading}
-                  className="px-3 py-3 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white rounded-lg transition-colors"
-                  title="Generar PDF de contabilidad"
-                >
-                  <FileText className="w-4 h-4" />
-                </button>
                 <button
                   onClick={sendMessage}
                   disabled={!inputMessage.trim() || isLoading}

@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Asistente-Empresarial (Next.js)
 
-## Getting Started
+Aplicación Next.js que expone APIs de negocio (empleados, clientes, proveedores, documentos) y un endpoint de chat que orquesta descargas reales de documentos cuando la IA lo solicita.
 
-First, run the development server:
+### 🚀 Arranque local
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🔧 Variables de entorno
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `MCP_SERVICE_URL` (opcional): URL del servicio Gemini-MCP Web. Por defecto `http://localhost:3003`.
+- Otras variables que agregues para tus propias integraciones.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔌 Endpoints principales
 
-## Learn More
+- `POST /api/chat`
+  - Orquesta la conversación con el servicio MCP. Si detecta una intención de descarga válida, adjunta al response el documento real en base64 y `downloadUrl`.
+  - Request: `{ message: string, history?: any[] }`
+  - Response: `{ message: string, documentAttachment?: { filename, content, contentType, size, downloadUrl }, ... }`
 
-To learn more about Next.js, take a look at the following resources:
+- `GET /api/documentos`
+  - Lista documentos disponibles. Retorna: `{ success, data: { id, nombre, descripcion, categoria, ... }[] }`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `GET /api/documentos/:filename`
+  - Descarga directa del PDF.
+  - Soporta `?format=base64` para obtener `{ content, contentType, size }`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📄 Flujo de descargas (sin adjuntos simulados)
 
-## Deploy on Vercel
+1. La IA (en Gemini-MCP) devuelve exclusivamente el nombre exacto del documento (p. ej., `ORDENES DE COMPRA.pdf`).
+2. El servidor web Gemini-MCP detecta ese nombre y llama a `POST /api/chat` con el mensaje: `"Descarga <NOMBRE>.pdf"` y el historial.
+3. Este servicio obtiene el documento desde `/api/documentos/:filename` (o en base64) y adjunta el archivo real en la respuesta.
+4. El frontend muestra botones de Ver/Descargar usando `documentAttachment`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🧩 Configurabilidad
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Las rutas y fuentes de datos están desacopladas para facilitar su reutilización. Puedes apuntar `MCP_SERVICE_URL` y/o sustituir las implementaciones de `/api/*` a tus propios servicios. El flujo seguirá funcionando mientras respetes las formas de respuesta descritas.
+
+### 🛠️ Notas de implementación
+
+- `app/api/chat/route.ts` contiene la lógica de detección de intención (palabras clave y contexto reciente) y la integración con el servicio MCP.
+- `app/api/documentos/route.ts` centraliza la lista de documentos disponibles y soporta filtros por `categoria` y `nombre`.
+
